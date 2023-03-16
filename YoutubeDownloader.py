@@ -23,7 +23,7 @@ def download_video(video_url, resolution, file_path):
     else:
         streams = yt.streams.filter(type="video")
         diffs = [abs(s.resolution[:-1] - int(resolution[:-1])) for s in streams]
-        closest_stream = streams[diffs.index(min(diffs))
+        closest_stream = streams[diffs.index(min(diffs))]
         closest_stream.download(output_path=".", filename=file_path)
     return yt.title
 
