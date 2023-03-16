@@ -25,8 +25,14 @@ def download_video(video_url, resolution, file_path):
 
 def download_audio(video_url, quality, file_name):
     yt = YouTube(video_url)
+    st.image(yt.thumbnail_url)
+    st.write(" Title : "+yt.title)
     stream = yt.streams.filter(only_audio=True, abr=quality).first()
     stream.download(output_path=".", filename=file_name)
+    st.image(yt.thumbnail_url)
+    st.write(" Title : "+yt.title)
+    audio_size = stream.filesize / (1024 * 1024)
+    st.write(f"Video size: {audio_size:.2f} MB")
     return yt.title
 
 
@@ -75,7 +81,7 @@ if st.button('Download Audio'):
     # Set download path to Downloads folder by default
     try:
         # download the audio to the default download directory on the remote server
-        download_audio(video_url, quality, file_name)
+        audio_name =download_audio(video_url, quality, file_name)
 
     # offer the downloaded audio as a download button
         with open(file_name, "rb") as f:
@@ -84,7 +90,7 @@ if st.button('Download Audio'):
             label="Click Here to Download",
             data=audio_data,
             mime="audio/mp3",
-            file_name=file_name
+            file_name=audio_name
         )
     except Exception as e:
         st.write("Error:", e)
