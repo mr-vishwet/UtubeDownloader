@@ -18,7 +18,7 @@ def download_video(video_url, resolution, file_path):
     stream = streams.order_by('resolution').desc().first()
     if stream is not None:
         video_size = streams[0].filesize / (1024 * 1024)
-        st.write("Video size: {video_size:.2f}"MB")
+        st.write("Video size: {video_size:.2f} MB")
         stream.download(output_path=".", filename=file_path)
     else:
         st.error("No stream available for the selected resolution.")
