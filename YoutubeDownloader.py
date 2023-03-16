@@ -48,7 +48,7 @@ if st.button('Download Video'):
 # Create form for audio download
 
 # Ask user for YouTube video URL
-url = st.text_input('Enter YouTube video URL:', key = 'audio_download')
+url = st.text_input('Enter YouTube video URL:( for audio download)', key = 'audio_download')
 
 # Ask user for audio quality
 quality_options = ['128kbps', '192kbps', '256kbps']
