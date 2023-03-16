@@ -14,6 +14,7 @@ def get_file_size(url: str) -> int:
 def download_video(video_url, resolution, file_path):
     yt = YouTube(video_url)
     st.image(yt.thumbnail_url)
+    st.write(" Title : "+yt.title)
     #stream = yt.streams.filter(res=resolution, progressive=True, file_extension='mp4').first()
     streams = yt.streams.filter(progressive=True, file_extension='mp4', resolution=resolution)
     stream = streams.order_by('resolution').desc().first()
@@ -24,7 +25,7 @@ def download_video(video_url, resolution, file_path):
         stream.download(output_path=".", filename=file_path)
     else:
         streams = yt.streams.filter(type="video")
-        diffs = [abs(s.resolution[:-1] - int(resolution[:-1])) for s in streams]
+        diffs = [abs(int(s.resolution[:-1]) - int(resolution[:-1])) for s in streams]
         closest_stream = streams[diffs.index(min(diffs))]
         closest_stream.download(output_path=".", filename=file_path)
     return yt.title
