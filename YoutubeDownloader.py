@@ -12,7 +12,7 @@ def download_video(video_url, resolution, file_path):
         stream.download(output_path=".", filename=file_path)
     else:
         st.error("No stream available for the selected resolution.")
-        break
+        
 
 
 def download_audio(video_url, quality, file_name):
