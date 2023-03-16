@@ -26,7 +26,7 @@ def download_video(video_url, resolution, file_path):
         streams = yt.streams.filter(type="video")
         diffs = [abs(int(s.resolution[:-1]) - int(resolution[:-1])) for s in streams]
         closest_stream = streams[diffs.index(min(diffs))]
-        video_size = closet_stream[0].filesize / (1024 * 1024)
+        video_size = closest_stream[0].filesize / (1024 * 1024)
         st.write(f"Video size: {video_size:.2f} MB")
         closest_stream.download(output_path=".", filename=file_path)
     return yt.title
