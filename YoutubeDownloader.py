@@ -58,7 +58,7 @@ if st.button('Download Video'):
         st.download_button(
             label="Click Here to Download",
             data=video_data,
-            file_name=video_name,
+            file_name=video_name+".mp4",
             mime='video/mp4'
         )
     except Exception as e:
