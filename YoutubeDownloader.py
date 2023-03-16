@@ -23,7 +23,7 @@ st.header('YouTube Downloader')
 
 
 # Ask user for YouTube video URL
-video_url = st.text_input('Enter YouTube video URL:', key = 'audio_download')
+video_url = st.text_input('Enter YouTube video URL:', key = 'video_download')
 resolution = st.selectbox('Select video quality:', [
                           '1080p', '720p', '480p', '360p', '240', '144p'])
 
