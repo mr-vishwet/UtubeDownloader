@@ -25,7 +25,7 @@ st.write("##### Video Download ")
 # Ask user for YouTube video URL
 video_url = st.text_input('Enter YouTube video URL:', key = 'video_download')
 resolution = st.selectbox('Select video quality:', [
-                          '1080p'+'mb', '720p'+'mb', '480p'+'mb', '360p'+'mb', '240'+'mb', '144p'+'mb'])
+                          '1080p : '+'( mb)', '720p : '+'( mb)', '480p : '+'(mb)', '360p :'+'(mb)', '240 : '+'(mb)', '144p :'+'(mb)'])
 
 # Define download button
 if st.button('Download Video'):
