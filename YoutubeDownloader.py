@@ -35,7 +35,7 @@ def download_audio(audio_url, quality, file_path):
         stream.download(output_path=".", filename=file_path)
     else:
         st.write("Audio quality not found")
-        diffs = [abs(int(s.abr[:-4]) - int(quality[:-4])) for s in streams]
+        diffs = [abs(int(s.abr[:-1]) - int(quality[:-1])) for s in streams]
         closest_stream = streams[diffs.index(min(diffs))]
         audio_size = closest_stream.filesize / (1024 * 1024)
         st.write(f"Audio size: {audio_size:.2f} MB")
