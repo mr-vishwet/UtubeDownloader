@@ -19,6 +19,7 @@ def download_video(video_url, resolution, file_path):
     stream = streams.order_by('resolution').desc().first()
     if stream is not None:
         video_size = streams[0].filesize / (1024 * 1024)
+        st.write(" Title : "+yt.title)
         st.write(f"Video size: {video_size:.2f} MB")
         stream.download(output_path=".", filename=file_path)
     else:
