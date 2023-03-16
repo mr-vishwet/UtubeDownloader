@@ -8,7 +8,10 @@ def download_video(video_url, resolution, file_path):
     #stream = yt.streams.filter(res=resolution, progressive=True, file_extension='mp4').first()
     streams = yt.streams.filter(progressive=True, file_extension='mp4', resolution=resolution)
     stream = streams.order_by('resolution').desc().first()
-    stream.download(output_path=".", filename=file_path)
+    if stream is not None:
+        stream.download(output_path=".", filename=file_path)
+    else:
+        st.error("No stream available for the selected resolution.")
 
 
 def download_audio(video_url, quality, file_name):
