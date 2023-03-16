@@ -70,7 +70,7 @@ if st.button('Download Video'):
 
 # Ask user for YouTube video URL
 st.write("##### Only Audio Download ")
-url = st.text_input('Enter YouTube video URL:', key = 'audio_download')
+audio_url = st.text_input('Enter YouTube video URL:', key = 'audio_download')
 
 # Ask user for audio quality
 quality_options = ['128kbps', '192kbps', '256kbps']
@@ -82,7 +82,7 @@ if st.button('Download Audio'):
     try:
         # download the audio to the default download directory on the remote server
         file_name ="audio.mp3"
-        audio_name =download_audio(video_url, quality, file_name)
+        audio_name =download_audio(audio_url, quality, file_name)
 
     # offer the downloaded audio as a download button
         with open(file_name, "rb") as f:
