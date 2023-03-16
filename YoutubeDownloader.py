@@ -23,18 +23,18 @@ def download_video(video_url, resolution, file_path):
         closest_stream.download(output_path=".", filename=file_path)
     return yt.title
 
-def download_audio(audio_url, file_path):
+def download_audio(audio_url, quality, file_path):
     yt = YouTube(audio_url)
     st.image(yt.thumbnail_url)
     st.write("Title: " + yt.title)
-    streams = yt.streams.filter(only_audio=True)
+    streams = yt.streams.filter(only_audio=True, abr=quality)
     if streams:
         stream = streams.first()
         audio_size = stream.filesize / (1024 * 1024)
         st.write(f"Audio size: {audio_size:.2f} MB")
         stream.download(output_path=".", filename=file_path)
     else:
-        st.write("No audio stream available for this video.")
+        st.write("No audio stream available for this quality")
     return yt.title
 
 
