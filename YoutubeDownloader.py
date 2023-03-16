@@ -42,8 +42,7 @@ with st.form('Video Download'):
                 label="Click Here to Download",
                 data=video_data,
                 file_name=file_name,
-                mime='video/mp4',
-                file_name=file_name
+                mime='video/mp4'
             )
         except Exception as e:
             st.write("Error:", e)
