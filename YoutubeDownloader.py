@@ -93,7 +93,7 @@ if st.button('Download Audio'):
             label="Click Here to Download",
             data=audio_data,
             mime="audio/mp3",
-            file_name=audio_name
+            file_name=audio_name+".mp3"
         )
     except Exception as e:
         st.write("Error:", e)
