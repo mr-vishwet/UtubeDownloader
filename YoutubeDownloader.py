@@ -21,14 +21,17 @@ def download_video(video_url, resolution, file_path):
         st.write(f"Video size: {video_size:.2f} MB")
         stream.download(output_path=".", filename=file_path)
     else:
-        st.error("No stream available for the selected resolution.")
-        
-
+        streams = yt.streams.filter(type="video")
+        diffs = [abs(s.resolution[:-1] - int(resolution[:-1])) for s in streams]
+        closest_stream = streams[diffs.index(min(diffs))
+        closest_stream.download(output_path=".", filename=file_path)
+    return yt.title
 
 def download_audio(video_url, quality, file_name):
     yt = YouTube(video_url)
     stream = yt.streams.filter(only_audio=True, abr=quality).first()
     stream.download(output_path=".", filename=file_name)
+    return yt.title
 
 
 # Set page title
@@ -47,7 +50,7 @@ resolution = st.selectbox('Select video quality:', [
 if st.button('Download Video'):
     try:
         file_name = "video.mp4"
-        download_video(video_url, resolution, file_name)
+        video_name = download_video(video_url, resolution, file_name)
 
         # Read the downloaded file as bytes
         with open(file_name, 'rb') as f:
@@ -55,7 +58,7 @@ if st.button('Download Video'):
         st.download_button(
             label="Click Here to Download",
             data=video_data,
-            file_name=file_name,
+            file_name=video_name,
             mime='video/mp4'
         )
     except Exception as e:
