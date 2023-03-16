@@ -3,6 +3,7 @@ import streamlit as st
 from pytube import YouTube
 import requests
 
+
 def download_video(video_url, resolution, file_path):
     yt = YouTube(video_url)
     st.image(yt.thumbnail_url)
@@ -23,6 +24,10 @@ def download_video(video_url, resolution, file_path):
         closest_stream.download(output_path=".", filename=file_path)
     return yt.title
 
+
+def convert_int(s):
+    return int(''.join(filter(str.isdigit, s)))
+
 def download_audio(audio_url, quality, file_path):
     yt = YouTube(audio_url)
     st.image(yt.thumbnail_url)
@@ -37,7 +42,7 @@ def download_audio(audio_url, quality, file_path):
         st.write("Audio quality not found")
         streams = yt.streams.filter(type="audio")
         st.write(streams)
-        diffs = [abs(int(''.join(filter(str.isdigit, s.abr))) - int(''.join(filter(str.isdigit, quality))) for s in streams]
+        diffs = [abs( convert_int(s.abr) - convert_int(quality) ) for s in streams]
         closest_stream = streams[diffs.index(min(diffs))]
         audio_size = closest_stream.filesize / (1024 * 1024)
         st.write(f"Audio size: {audio_size:.2f} MB")
