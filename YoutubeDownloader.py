@@ -2,6 +2,13 @@
 import streamlit as st
 from pytube import YouTube
 
+def get_file_size(url: str) -> int:
+    headers = requests.head(url).headers
+    content_length = headers.get("Content-Length")
+    if content_length is None:
+        return 0
+    return int(content_length)
+
 
 def download_video(video_url, resolution, file_path):
     yt = YouTube(video_url)
