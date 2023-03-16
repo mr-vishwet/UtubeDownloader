@@ -16,7 +16,7 @@ def download_video(video_url, resolution, file_path):
     streams = yt.streams.filter(progressive=True, file_extension='mp4', resolution=resolution)
     stream = streams.order_by('resolution').desc().first()
     if stream is not None:
-        video_size = get_file_size(video_stream.url)
+        video_size = get_file_size(stream.url)
         st.write(f"Video size: {format_size(video_size)}")
         stream.download(output_path=".", filename=file_path)
     else:
