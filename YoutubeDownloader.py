@@ -37,7 +37,7 @@ def download_audio(audio_url, quality, file_path):
         st.write("Audio quality not found")
         streams = yt.streams.filter(type="audio")
         st.write(streams)
-        diffs = [abs(int(s.abr[:-1]) - int(quality[:-2])) for s in streams]
+        diffs = [abs(int(re.search(r'(\d+)kbps', s.abr).group(1)) - int(re.search(r'(\d+)kbps', quality).group(1))) for s in streams]
         closest_stream = streams[diffs.index(min(diffs))]
         audio_size = closest_stream.filesize / (1024 * 1024)
         st.write(f"Audio size: {audio_size:.2f} MB")
