@@ -81,6 +81,7 @@ if st.button('Download Audio'):
     # Set download path to Downloads folder by default
     try:
         # download the audio to the default download directory on the remote server
+        file_name ="audio.mp3"
         audio_name =download_audio(video_url, quality, file_name)
 
     # offer the downloaded audio as a download button
