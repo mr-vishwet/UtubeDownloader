@@ -5,7 +5,7 @@ from pytube import YouTube
 
 def download_video(video_url, resolution, file_path):
     yt = YouTube(video_url)
-    streams = yt.streams.filter(progressive=True, file_extension='mp4', resolution=resolution)
+    stream = yt.streams.filter(progressive=True, file_extension='mp4', resolution=resolution)
     #stream = streams.order_by('resolution').desc().first()
     stream.download(output_path=".", filename=file_path)
 
