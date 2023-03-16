@@ -21,7 +21,7 @@ st.set_page_config(page_title='YouTube Downloader')
 # Set page header
 st.header('YouTube Downloader')
 
-
+st.write("##### Video Download ")
 # Ask user for YouTube video URL
 video_url = st.text_input('Enter YouTube video URL:', key = 'video_download')
 resolution = st.selectbox('Select video quality:', [
@@ -48,6 +48,7 @@ if st.button('Download Video'):
 # Create form for audio download
 
 # Ask user for YouTube video URL
+st.write("##### Only Audio Download ")
 url = st.text_input('Enter YouTube video URL:', key = 'audio_download')
 
 # Ask user for audio quality
