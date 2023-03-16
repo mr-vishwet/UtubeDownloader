@@ -23,7 +23,7 @@ st.header('YouTube Downloader')
 
 
 # Ask user for YouTube video URL
-video_url = st.text_input('Enter YouTube video URL:', '')
+video_url = st.text_input('Enter YouTube video URL:', key = 'audio_download')
 resolution = st.selectbox('Select video quality:', [
                           '1080p', '720p', '480p', '360p', '240', '144p'])
 
@@ -48,7 +48,7 @@ if st.button('Download Video'):
 # Create form for audio download
 
 # Ask user for YouTube video URL
-url = st.text_input('Enter YouTube video URL:', '')
+url = st.text_input('Enter YouTube video URL:', key = 'audio_download')
 
 # Ask user for audio quality
 quality_options = ['128kbps', '192kbps', '256kbps']
