@@ -16,6 +16,7 @@ def download_video(video_url, resolution, file_path):
         st.write(f"Video size: {video_size:.2f} MB")
         stream.download(output_path=".", filename=file_path)
     else:
+        st.write("Critical download")
         streams = yt.streams.filter(type="video",progressive = true)
         diffs = [abs(int(s.resolution[:-1]) - int(resolution[:-1])) for s in streams]
         closest_stream = streams[diffs.index(min(diffs))]
