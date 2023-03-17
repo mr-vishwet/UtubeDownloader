@@ -6,7 +6,7 @@ from moviepy.editor import VideoFileClip, AudioFileClip
 
 def download_video(url, resolution, file_path):
     yt = YouTube(url)
-    st.image(yt.thumbnail_url)
+    #st.image(yt.thumbnail_url)
     st.write(" Title : "+yt.title)
     streams = yt.streams.filter(progressive=True, file_extension='mp4', res=resolution)
     st.write(streams)
