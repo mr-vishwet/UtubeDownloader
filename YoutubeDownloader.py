@@ -4,8 +4,8 @@ from pytube import YouTube
 import requests
 from moviepy.editor import VideoFileClip, AudioFileClip
 
-def download_video(video_url, resolution, file_path):
-    yt = YouTube(video_url)
+def download_video(url, resolution, file_path):
+    yt = YouTube(url)
     st.image(yt.thumbnail_url)
     st.write(" Title : "+yt.title)
     #stream = yt.streams.filter(res=resolution, progressive=True, file_extension='mp4').first()
@@ -21,12 +21,10 @@ def download_video(video_url, resolution, file_path):
         st.write("Critical download")
         streams = yt.streams.filter(type="video")
         st.write(streams)
-        
-        video = video.set_audio(audio)
         diffs = [abs(int(s.resolution[:-1]) - int(resolution[:-1])) for s in streams]
         closest_stream = streams[diffs.index(min(diffs))]
         audio_file = AudioFileClip(video_url)
-        closest_stream = set_audio(audio_file)
+        closest_stream = closest_stream.set_audio(audio_file)
         video_size = closest_stream.filesize / (1024 * 1024)
         st.write(f"Video size: {video_size:.2f} MB")
         video.write_videofile(".")
@@ -37,7 +35,7 @@ def download_video(video_url, resolution, file_path):
 def convert_int(s):
     return int(''.join(filter(str.isdigit, s)))
 
-def download_audio(audio_url, quality, file_path):
+def download_audio(url, quality, file_path):
     yt = YouTube(audio_url)
     st.image(yt.thumbnail_url)
     st.write("Title: " + yt.title)
@@ -65,7 +63,7 @@ st.header('YouTube Downloader')
 
 st.write("##### Video Download ")
 # Ask user for YouTube video URL
-video_url = st.text_input('Enter YouTube video URL:', key = 'video_download')
+url = st.text_input('Enter YouTube video URL:', key = 'video_download')
 resolution = st.selectbox('Select video quality:', [
                           '1080p', '720p', '480p', '360p', '240p', '144p'])
 
@@ -73,7 +71,7 @@ resolution = st.selectbox('Select video quality:', [
 if st.button('Download Video'):
     try:
         file_name = "video.mp4"
-        video_name = download_video(video_url, resolution, file_name)
+        video_name = download_video(url, resolution, file_name)
 
         # Read the downloaded file as bytes
         with open(file_name, 'rb') as f:
@@ -91,7 +89,6 @@ if st.button('Download Video'):
 
 # Ask user for YouTube video URL
 st.write("##### Only Audio Download ")
-audio_url = st.text_input('Enter YouTube video URL:', key = 'audio_download')
 
 # Ask user for audio quality
 quality_options = ['128kbps', '192kbps', '256kbps']
@@ -103,7 +100,7 @@ if st.button('Download Audio'):
     try:
         # download the audio to the default download directory on the remote server
         file_name ="audio.mp3"
-        audio_name =download_audio(audio_url, quality, file_name)
+        audio_name =download_audio(url, quality, file_name)
 
     # offer the downloaded audio as a download button
         with open(file_name, "rb") as f:
