@@ -5,7 +5,7 @@ import requests
 from moviepy.editor import VideoFileClip, AudioFileClip
 
 def download_video(url, resolution, file_path):
-    yt = YouTube(video_url)
+    yt = YouTube(url)
     st.image(yt.thumbnail_url)
     st.write(" Title : "+yt.title)
     streams = yt.streams.filter(progressive=True, file_extension='mp4', res=resolution)
@@ -21,15 +21,13 @@ def download_video(url, resolution, file_path):
             st.write("Critical download")
             streams = yt.streams.filter(type="video")
             st.write(streams)
-            
-            video = video.set_audio(audio)
             diffs = [abs(int(s.resolution[:-1]) - int(resolution[:-1])) for s in streams]
             closest_stream = streams[diffs.index(min(diffs))]
-            audio_file = AudioFileClip(video_url)
-            closest_stream = set_audio(audio_file)
+            audio_file = AudioFileClip(url)
+            closest_stream = closest_stream.set_audio(audio_file)
             video_size = closest_stream.filesize / (1024 * 1024)
             st.write(f"Video size: {video_size:.2f} MB")
-            video.write_videofile(".")
+            #closest_stream.write_videofile(".")
             closest_stream.download(output_path=".", filename=file_path)
         return yt.title
     
