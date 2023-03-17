@@ -36,7 +36,7 @@ def convert_int(s):
     return int(''.join(filter(str.isdigit, s)))
 
 def download_audio(url, quality, file_path):
-    yt = YouTube(audio_url)
+    yt = YouTube(url)
     st.image(yt.thumbnail_url)
     st.write("Title: " + yt.title)
     streams = yt.streams.filter(only_audio=True, abr=quality)
