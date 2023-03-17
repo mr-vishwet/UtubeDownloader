@@ -2,7 +2,7 @@
 import streamlit as st
 from pytube import YouTube
 import requests
-
+from moviepy.editor import VideoFileClip, AudioFileClip
 
 def download_video(video_url, resolution, file_path):
     yt = YouTube(video_url)
@@ -17,12 +17,17 @@ def download_video(video_url, resolution, file_path):
         stream.download(output_path=".", filename=file_path)
     else:
         st.write("Critical download")
-        streams = yt.streams.filter(type="video",progressive=True)
+        streams = yt.streams.filter(type="video")
         st.write(streams)
+        
+        video = video.set_audio(audio)
         diffs = [abs(int(s.resolution[:-1]) - int(resolution[:-1])) for s in streams]
         closest_stream = streams[diffs.index(min(diffs))]
+        audio_file = AudioFileClip(url)
+        closest_stream = set_audio(audio_file)
         video_size = closest_stream.filesize / (1024 * 1024)
         st.write(f"Video size: {video_size:.2f} MB")
+        video.write_videofile(".")
         closest_stream.download(output_path=".", filename=file_path)
     return yt.title
 
