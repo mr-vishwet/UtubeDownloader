@@ -23,7 +23,7 @@ def download_video(video_url, resolution, file_path):
         video = video.set_audio(audio)
         diffs = [abs(int(s.resolution[:-1]) - int(resolution[:-1])) for s in streams]
         closest_stream = streams[diffs.index(min(diffs))]
-        audio_file = AudioFileClip(url)
+        audio_file = AudioFileClip(video_url)
         closest_stream = set_audio(audio_file)
         video_size = closest_stream.filesize / (1024 * 1024)
         st.write(f"Video size: {video_size:.2f} MB")
