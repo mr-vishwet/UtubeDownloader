@@ -19,8 +19,6 @@ def download_video(video_url, resolution, file_path):
         st.write("Critical download")
         streams = yt.streams.filter(type="video")
         st.write(streams)
-        
-        video = video.set_audio(audio)
         diffs = [abs(int(s.resolution[:-1]) - int(resolution[:-1])) for s in streams]
         closest_stream = streams[diffs.index(min(diffs))]
         audio_file = AudioFileClip(video_url)
