@@ -5,33 +5,34 @@ import requests
 from moviepy.editor import VideoFileClip, AudioFileClip
 
 def download_video(url, resolution, file_path):
-    yt = YouTube(url)
+    yt = YouTube(video_url)
     st.image(yt.thumbnail_url)
     st.write(" Title : "+yt.title)
-    #stream = yt.streams.filter(res=resolution, progressive=True, file_extension='mp4').first()
     streams = yt.streams.filter(progressive=True, file_extension='mp4', res=resolution)
     st.write(streams)
-    
-    if stream is not None:
+    if streams:
         stream = streams.order_by('resolution').desc().first()
         st.write(stream)
-        video_size = streams[0].filesize / (1024 * 1024)
-        st.write(f"Video size: {video_size:.2f} MB")
-        stream.download(output_path=".", filename=file_path)
-    else:
-        st.write("Critical download")
-        streams = yt.streams.filter(type="video")
-        st.write(streams)
-        diffs = [abs(int(s.resolution[:-1]) - int(resolution[:-1])) for s in streams]
-        closest_stream = streams[diffs.index(min(diffs))]
-        audio_file = AudioFileClip(video_url)
-        closest_stream = closest_stream.set_audio(audio_file)
-        video_size = closest_stream.filesize / (1024 * 1024)
-        st.write(f"Video size: {video_size:.2f} MB")
-        video.write_videofile(".")
-        closest_stream.download(output_path=".", filename=file_path)
-    return yt.title
-
+        if stream is not None:
+            video_size = streams[0].filesize / (1024 * 1024)
+            st.write(f"Video size: {video_size:.2f} MB")
+            stream.download(output_path=".", filename=file_path)
+        else:
+            st.write("Critical download")
+            streams = yt.streams.filter(type="video")
+            st.write(streams)
+            
+            video = video.set_audio(audio)
+            diffs = [abs(int(s.resolution[:-1]) - int(resolution[:-1])) for s in streams]
+            closest_stream = streams[diffs.index(min(diffs))]
+            audio_file = AudioFileClip(video_url)
+            closest_stream = set_audio(audio_file)
+            video_size = closest_stream.filesize / (1024 * 1024)
+            st.write(f"Video size: {video_size:.2f} MB")
+            video.write_videofile(".")
+            closest_stream.download(output_path=".", filename=file_path)
+        return yt.title
+    
 
 def convert_int(s):
     return int(''.join(filter(str.isdigit, s)))
