@@ -63,7 +63,7 @@ st.header('YouTube Downloader')
 
 st.write("##### Video Download ")
 # Ask user for YouTube video URL
-url = st.text_input('Enter YouTube video URL:', key = 'video_download')
+url = st.text_input("Enter YouTube video URL:")
 resolution = st.selectbox('Select video quality:', [
                           '1080p', '720p', '480p', '360p', '240p', '144p'])
 
@@ -100,7 +100,7 @@ if st.button('Download Audio'):
     try:
         # download the audio to the default download directory on the remote server
         file_name ="audio.mp3"
-        audio_name =download_audio(url, quality, file_name)
+        audio_name = download_audio(url, quality, file_name)
 
     # offer the downloaded audio as a download button
         with open(file_name, "rb") as f:
