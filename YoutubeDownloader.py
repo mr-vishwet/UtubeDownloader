@@ -9,7 +9,7 @@ def download_video(video_url, resolution, file_path):
     st.image(yt.thumbnail_url)
     st.write(" Title : "+yt.title)
     #stream = yt.streams.filter(res=resolution, progressive=True, file_extension='mp4').first()
-    streams = yt.streams.filter(progressive=True, file_extension='mp4', resolution=resolution)
+    streams = yt.streams.filter(progressive=True, file_extension='mp4', res=resolution)
     stream = streams.order_by('resolution').desc().first()
     if stream is not None:
         video_size = streams[0].filesize / (1024 * 1024)
